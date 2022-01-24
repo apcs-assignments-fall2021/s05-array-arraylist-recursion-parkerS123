@@ -171,11 +171,16 @@ public class MyMain {
             if (count == count2){
                 return true;
             }
+            else {
+                return false;
+            }
         }
         else if (arr[i] == x){
-            // count ++ and run again
+            return hasCountCopiesTR(arr, x, count, i + 1, count2 + 1);
         }
-        return false;
+        else {
+            return hasCountCopiesTR(arr, x, count, i + 1, count2);
+        }
     }
 
 
@@ -185,11 +190,20 @@ public class MyMain {
     // Wrapper method
     public static boolean isSorted(ArrayList<Integer> list) {
         // YOUR CODE HERE
-        return false;
+        return isSortedTR(list, 0, Integer.MIN_VALUE);
     }
 
-    // You may want a tail recursive method
-
+    public static boolean isSortedTR(ArrayList<Integer> list, int i, int previous){
+        if (i == list.size()){
+            return true;
+        }
+        else if (list.get(i) < previous){
+            return false;
+        }
+        else {
+            return isSortedTR(list, i + 1, list.get(i));
+        }
+    }
 
 
 
