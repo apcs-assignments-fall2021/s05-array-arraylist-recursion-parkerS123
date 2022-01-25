@@ -233,8 +233,28 @@ public class MyMain {
 
     // No tail recursion necessary!
     public static boolean escape(char[][] mat, int row, int col) {
-        // YOUR CODE HERE
-        return false;
+        // Check out of bounds, return
+        if (row < 0 || col < 0 || row >= mat.length || col >= mat[0].length){
+            return;
+        }
+        // If we're at wall, don't do anything
+        else if (mat[row][col] == 'w') {
+            return;
+        }
+        // If we've already visited there, let's return early
+        else if (mat[row][col] == '*') {
+            return;
+        }
+        else {
+            // Leave "breadcrumbs"
+            mat[row][col] = '*';
+
+            // Visit our neighbors (left, up, right, down)
+            floodFill(mat, row, col-1);
+            floodFill(mat, row-1, col);
+            floodFill(mat, row, col+1);
+            floodFill(mat, row+1, col);
+        }
     }
 
 
