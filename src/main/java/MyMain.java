@@ -235,25 +235,30 @@ public class MyMain {
     public static boolean escape(char[][] mat, int row, int col) {
         // Check out of bounds, return
         if (row < 0 || col < 0 || row >= mat.length || col >= mat[0].length){
-            return;
+            return false;
         }
         // If we're at wall, don't do anything
         else if (mat[row][col] == 'w') {
-            return;
+            return false;
         }
         // If we've already visited there, let's return early
         else if (mat[row][col] == '*') {
-            return;
+            return false;
+        }
+        else if (mat[row][col] == 'f'){
+            return true;
         }
         else {
             // Leave "breadcrumbs"
             mat[row][col] = '*';
 
             // Visit our neighbors (left, up, right, down)
-            floodFill(mat, row, col-1);
-            floodFill(mat, row-1, col);
-            floodFill(mat, row, col+1);
-            floodFill(mat, row+1, col);
+            boolean b1 = escape(mat, row, col-1);
+            boolean b2 = escape(mat, row-1, col);
+            boolean b3 = escape(mat, row, col+1);
+            boolean b4 = escape(mat, row+1, col);
+
+            return (b1 || b2 || b3 || b4);
         }
     }
 
